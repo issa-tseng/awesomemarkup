@@ -1,3 +1,10 @@
+/**
+ * awesomemarkup - generate markup without all the headache.
+ *  clint tseng (clint@dontexplain.com) - 2011-06-03
+ *   Licensed under the WTFPL (http://sam.zoy.org/wtfpl/). Do what
+ *   you want, but please do let me know what you think.
+ */
+
 ;(function()
 {
     var tag = function(options)

@@ -27,3 +27,7 @@ h2. it has unit tests!
 
 To run them, grab @jasmine-node@ from @npm@, then simply fire off @jasmine-node spec@.
 
+h2. licensing
+
+Licensed under the "WTFPL":http://sam.zoy.org/wtfpl/
+
