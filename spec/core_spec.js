@@ -1,4 +1,4 @@
-var t = require('../awesomemarkup')
+var t = require('../awesomemarkup');
 
 describe('just tags', function()
 {
@@ -52,10 +52,31 @@ describe('basic attributes', function()
     {
         var config = {
             _: 'a',
-            title: '&#x09af;&not entity;'
+            title: '&#x09af;&not entity;&amp;'
         }
 
-        expect(t.tag(config)).toEqual('<a title="&#x09af;&amp;not entity;"></a>');
+        expect(t.tag(config)).toEqual('<a title="&#x09af;&amp;not entity;&amp;"></a>');
+    });
+
+    it('should render attributes with self-closing tags', function()
+    {
+        var config = {
+            _: 'img',
+            src: '/images/icon.png'
+        };
+
+        expect(t.tag(config)).toEqual('<img src="/images/icon.png"/>');
+    });
+
+    it('shouldnt choke on nully values', function()
+    {
+        var config = {
+            _: 'div',
+            id: undefined,
+            'class': null
+        };
+
+        expect(t.tag(config)).toEqual('<div></div>');
     });
 });
 
