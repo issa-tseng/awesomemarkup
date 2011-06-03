@@ -19,3 +19,11 @@ bc. var $elem = $.tag({
 
 Of course, it does a lot, lot more, too! ...I'll document all that later.
 
+h2. it works with your web framework!
+
+By default, awesomemarkup will just dump itself into the global namespace under the name @awesomemarkup@. However, if it finds that it's being included as a CommonJS module, it'll export the critical function as @exports.tag()@; if it finds jQuery it'll alias to @$.tag()@ (and automatically make the generated markup a jQuery), and so on.
+
+h2. it has unit tests!
+
+To run them, grab @jasmine-node@ from @npm@, then simply fire off @jasmine-node spec@.
+
