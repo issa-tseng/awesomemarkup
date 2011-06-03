@@ -1,45 +1,62 @@
-;awesomemarkup = (function()
+;(function()
 {
-    var tag = function(tag)
+    var tag = function(options)
     {
-        if (isUndefined(tag) || (tag === null))
-            return '';
-        else if (isArray(tag))
-            return _.map(tag, function(subtag) { return $.tag(subtag, true); }).join('');
-        else if (isString(tag) || isNumber(tag))
-            return tag.toString();
-
-        var result = '<' + tag._;
-
-        for (var attr in tag)
+        if (isUndefined(options) || (options === null))
         {
-            var value = tag[attr];
-
-            // skip these; they're special
-            if ((attr == '_') || (attr == 'contents'))
-                return;
-
-            var parsedValue = parseValue(value, attr);
-            if (!isString(parsedValue) || (parsedValue !== ''))
-                result += ' ' + attr + '="' + xmlEntityEncode(parsedValue) + '"';
+            return '';
+        }
+        else if (isArray(options))
+        {
+            var result = [];
+            for (var i = 0; i < options.length; i++)
+                result.push(tag(options[i]));
+            return result.join('');
+        }
+        else if (isString(options) || isNumber(options))
+        {
+            return options.toString();
         }
 
-        if ((tag._ == 'input') || (tag._ == 'meta') || (tag._ == 'link') || (tag._ == 'img'))
-            result += '/>';
-        else
-          result += '>' + $.tag(tag.contents, true) + '</' + tag._ + '>';
+        var elemType = options['_'],
+            result = ['<', elemType];
 
-        return result;
+        for (var attr in options)
+        {
+            // skip these; they're special
+            if ((attr == '_') || (attr == 'contents'))
+                continue;
+
+            var parsedValue = parseValue(options[attr], attr);
+            if (isString(parsedValue) && (parsedValue !== ''))
+                result.push(' ' + attr + '="' + xmlEntityEncode(parsedValue) + '"');
+        }
+
+        if ((elemType == 'input') || (elemType == 'meta') || (elemType == 'link') || (elemType == 'img'))
+            result.push('/>');
+        else
+          result.push('>' + tag(options['contents']) + '</' + elemType + '>');
+
+        return result.join('');
     };
 
     var parseValue = function(value, attr)
     {
         if (isUndefined(value) || (value === null))
+        {
             return '';
+        }
         else if (isArray(value))
-            return _.map(value, function(subvalue) { return parseValue(subvalue, attr); }).join(' ');
+        {
+            var result = [];
+            for (var i = 0; i < value.length; i++)
+                result.push(parseValue(value[i]));
+            return result.join(' ');
+        }
         else if (isString(value) || isNumber(value))
+        {
             return value.toString();
+        }
 
         // figure out boolean attrs
         if ((value === true) && (attr == 'checked' || attr == 'selected' || attr == 'disabled' ||
@@ -53,10 +70,10 @@
         // after this point, we assume that we're an object; all primitive types have been detected
 
         // figure out conditionals
-        if (value.si === true)
-            return parseValue(value.ergo);
-        else if (value.si === false)
-            return parseValue(value.alter);
+        if (value.i === true)
+            return parseValue(value.t);
+        else if (value.i === false)
+            return parseValue(value.e);
 
         // figure out style
         if (attr == 'style')
@@ -73,15 +90,26 @@
         return str.replace(/"/g, '&quot;')
                   .replace(/'/g, '&squo;')
                   .replace(/</g, '&lt;')
-                  .replace(/>/g, '&gt;');
+                  .replace(/>/g, '&gt;')
+                  .replace(/&(?!(?:[a-z0-9]{1,6}|#x?[a-f0-9]{1,4});)/ig, '&amp;');
     };
 
-    // duplicate some of underscore.js's excellent detection functions here
+// duplicate some of underscore.js's excellent detection functions here
     var isUndefined = function(obj) { return obj === void 0; };
     var isNumber = function(obj) { return !!(obj === 0 || (obj && obj.toExponential && obj.toFixed)); };
     var isString = function(obj) { return !!(obj === '' || (obj && obj.charCodeAt && obj.substr)); };
     var isArray = function(obj) { return toString.call(obj) === '[object Array]'; };
 
-    return tag;
+// setup!
+    var root = this;
+
+    // export to commonjs/node module if we see one; otherwise add to global
+    if (!isUndefined(module) && module['exports'])
+        module['exports'] = { tag: tag };
+    else
+        root['awesomemarkup'] = tag;
+
+    // attach ourselves to various frameworks if we find them
+    //if (root['jQuery'])
 })();
 
