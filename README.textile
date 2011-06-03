@@ -1,0 +1,21 @@
+h1. awesomemarkup — generate markup without all the headache.
+
+h2. what's this?
+
+Sometimes, despite all the separation you've done between your behavior and your presentation, you just have to generate some markup in Javascript. Inserting a div here, adding a link there. Usually, that sort of code ends up looking like this:
+
+bc. var $elem = $('<div class="loadingSpinner ' + someStr + ' ' + (someBool ? 'active' : '') + '"></div>');
+
+Good luck reading that. By contrast, awesomemarkup lets you write that same block of mishmash like this:
+
+bc. var $elem = $.tag({
+  _: 'div',
+  class: [
+    'loadingSpinner',
+    someStr,
+    { i: someBool, t: 'active' }
+  ]
+});
+
+Of course, it does a lot, lot more, too! ...I'll document all that later.
+
