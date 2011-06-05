@@ -90,6 +90,11 @@
                 result.push(snakeify(key) + ':' + parseValue(value[key]));
             return result.join(';');
         }
+
+        // we've run out of our own special things to parse but it's still a complex
+        // object; see if we can toString it?
+        if (typeof value.toString == 'function')
+            return value.toString();
     };
 
     var xmlEntityEncode = function(str)
