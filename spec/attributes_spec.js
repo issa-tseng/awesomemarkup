@@ -111,3 +111,68 @@ describe('special attributes', function()
         expect(t.tag(config)).toEqual('<div style="margin-top:1em;margin-bottom:0.5em"></div>');
     });
 });
+
+describe('special attribute values', function()
+{
+    it('should handle conditionals properly', function()
+    {
+        var config = {
+            _: 'div',
+            id: { i: true, t: 'idTrue', e: 'idFalse' },
+            name: { i: false, t: 'nameTrue', e: 'nameFalse' }
+        };
+
+        expect(t.tag(config)).toEqual('<div id="idTrue" name="nameFalse"></div>');
+    });
+
+    it('should be able to nest conditionals', function()
+    {
+        var config = {
+            _: 'div',
+            id: { i: true, t: { i: false, t: 'idTrueTrue', e: 'idTrueFalse' }, e: 'idFalse' }
+        };
+
+        expect(t.tag(config)).toEqual('<div id="idTrueFalse"></div>');
+    });
+
+    it('should handle empty conditional results gracefully', function()
+    {
+        var config = {
+            _: 'div',
+            id: { i: true }
+        };
+
+        expect(t.tag(config)).toEqual('<div></div>');
+    });
+
+    it('should be able to take arrays', function()
+    {
+        var config = {
+            _: 'span',
+            'class': [ 'some', 'class', 'names', 'here' ]
+        };
+
+        expect(t.tag(config)).toEqual('<span class="some class names here"></span>');
+    });
+
+    it('should be able to nest arrays and conditionals', function()
+    {
+        var config = {
+            _: 'span',
+            'class': [ 'alwaysHere', { i: true, t: 'sometimesHere' } ]
+        };
+
+        expect(t.tag(config)).toEqual('<span class="alwaysHere sometimesHere"></span>');
+    });
+
+    it('should take fancy user-defined objects that have toString', function()
+    {
+        var config = {
+            _: 'h1',
+            'id': { toString: function() { return 'myToString'; } }
+        };
+
+        expect(t.tag(config)).toEqual('<h1 id="myToString"></h1>');
+    });
+});
+
