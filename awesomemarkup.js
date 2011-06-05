@@ -77,10 +77,10 @@
         // after this point, we assume that we're an object; all primitive types have been detected
 
         // figure out conditionals
-        if (value.i === true)
-            return parseValue(value.t);
-        else if (value.i === false)
-            return parseValue(value.e);
+        if (value['i'] === true)
+            return parseValue(value['t']);
+        else if (value['i'] === false)
+            return parseValue(value['e']);
 
         // figure out style
         if (attr == 'style')
@@ -122,7 +122,7 @@
 
     // export to commonjs/node module if we see one; otherwise add to global
     if (!isUndefined(module) && module['exports'])
-        module['exports'] = { tag: tag };
+        module['exports'] = { 'tag': tag };
     else
         root['awesomemarkup'] = tag;
 
