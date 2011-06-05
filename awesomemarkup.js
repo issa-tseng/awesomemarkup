@@ -85,10 +85,10 @@
         // figure out style
         if (attr == 'style')
         {
-            var result = '';
+            var result = [];
             for (var key in value)
-                result += key + ':' + parseValue(value[key]) + ';';
-            return result;
+                result.push(snakeify(key) + ':' + parseValue(value[key]));
+            return result.join(';');
         }
     };
 
@@ -99,6 +99,11 @@
                   .replace(/</g, '&lt;')
                   .replace(/>/g, '&gt;')
                   .replace(/&(?!(?:[a-z0-9]{1,6}|#x?[a-f0-9]{1,4});)/ig, '&amp;');
+    };
+
+    var snakeify = function(str)
+    {
+        return str.replace(/[A-Z]/g, function(c) { return '-' + c.toLowerCase(); });
     };
 
 // duplicate some of underscore.js's excellent detection functions here
