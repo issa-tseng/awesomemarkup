@@ -54,3 +54,60 @@ describe('basic attributes', function()
     });
 });
 
+describe('special attributes', function()
+{
+    it('should handle boolean attributes', function()
+    {
+        var booleanAttributes = ['checked', 'selected', 'disabled', 'readonly',
+                                 'multiple', 'ismap', 'defer', 'declare', 'noresize',
+                                 'nowrap', 'noshade', 'compact'];
+
+        for (var i = 0; i < booleanAttributes.length; i++)
+        {
+            var baseConfig = { _: 'div' };
+
+            baseConfig[booleanAttributes[i]] = true;
+            expect(t.tag(baseConfig)).toEqual('<div ' + booleanAttributes[i] + '="' +
+                                                        booleanAttributes[i] + '"></div>');
+
+            baseConfig[booleanAttributes[i]] = false;
+            expect(t.tag(baseConfig)).toEqual('<div></div>');
+        }
+    });
+
+    it('shouldnt try to handle boolean values for nonboolean attributes', function()
+    {
+        var config = {
+            _: 'div',
+            id: true
+        };
+
+        expect(t.tag(config)).toEqual('<div id="true"></div>');
+    });
+
+    it('should take a k/v hash for style attributes', function()
+    {
+        var config = {
+            _: 'div',
+            style: {
+                display: 'none',
+                position: 'absolute'
+            }
+        };
+
+        expect(t.tag(config)).toEqual('<div style="display:none;position:absolute"></div>');
+    });
+
+    it('should handle both methods of style attribute compound words', function()
+    {
+        var config = {
+            _: 'div',
+            style: {
+                marginTop: '1em',
+                'margin-bottom': '0.5em'
+            }
+        };
+
+        expect(t.tag(config)).toEqual('<div style="margin-top:1em;margin-bottom:0.5em"></div>');
+    });
+});
