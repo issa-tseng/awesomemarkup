@@ -28,6 +28,15 @@
         var elemType = options['_'],
             result = ['<', elemType];
 
+        if (isUndefined(elemType))
+        {
+            if (options['i'] === true)
+                return tag(options['t']);
+            else if (options['i'] === false)
+                return tag(options['e']);
+            return '';
+        }
+
         for (var attr in options)
         {
             // skip these; they're special
