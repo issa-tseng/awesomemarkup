@@ -27,6 +27,10 @@ describe('toplevel structure', function()
         };
 
         expect(t.tag(config)).toEqual('success');
+
+        config.i = false;
+
+        expect(t.tag(config)).toEqual('');
     });
 
     it('should take a child', function()
