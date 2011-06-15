@@ -1,0 +1,155 @@
+// colors
+
+$background: #3c3c3c
+$inset: #2d2d2d
+$inset-border: #262626
+$headers: #eee
+$text: #f2f2f2
+$link: #9c3
+$link_highlight: #fff
+
+// helpers
+
+@mixin border-radius($a)
+  border-radius: $a
+  -moz-border-radius: $a
+  -webkit-border-radius: $a
+  webkit-border-radius: $a
+
+@mixin box-shadow($x,$y,$r,$c,$inset: false)
+  @if $inset == true
+    box-shadow: inset $x $y $r $c
+    -moz-box-shadow: inset $x $y $r $c
+    -webkit-box-shadow: inset $x $y $r $c
+  @else
+    box-shadow: $x $y $r $c
+    -moz-box-shadow: $x $y $r $c
+    -webkit-box-shadow: $x $y $r $c
+
+@mixin transition-duration($t)
+  transition-duration: $t
+  -moz-transition-duration: $t
+  -webkit-transition-duration: $t
+
+@mixin transition-property($p)
+  transition-property: $p
+  @if ($p == box-shadow) or ($p == border-radius)
+    -moz-transition-property: -moz- + $p
+    -webkit-transition-property: -webkit- + $p
+  @else
+    -moz-transition-property: $p
+    -webkit-transition-property: $p
+
+// reset
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td
+  margin: 0
+  padding: 0
+  border: 0
+  outline: 0
+  vertical-align: baseline
+  background: transparent
+
+body
+  font-size: 62.5%
+  line-height: 1
+
+ol, ul
+  list-style: none
+
+blockquote, q
+  quotes: none
+
+  &:before, &:after
+    content: ''
+    content: none
+
+// base styles
+
+body
+  background-color: $background
+  color: $text
+
+h1, h2, h3, h4, h5, h6
+  color: $headers
+
+h2
+  font-size: 2em
+  margin-bottom: 0.3em
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4)
+
+h3
+  font-size: 1.6em
+  margin-bottom: 0.4em
+
+p
+  font-size: 1.6em
+  line-height: 1.3em
+
+pre
+  background-color: $inset
+  border: 2px solid $inset-border
+  @include border-radius(1em)
+  font-family: monaco, menlo, consolas, monospace
+  font-size: 1.1em
+  line-height: 1.3em
+  padding: 1em
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6)
+
+a
+  color: $link
+  text-decoration: none
+  @include transition-duration(1s)
+  @include transition-property(color)
+
+  &:hover
+    color: $link_highlight
+
+.twoUp
+  overflow: hidden
+  padding: 2em 0
+
+  .leftCol, .rightCol
+    float: left
+    width: 50%
+
+  .leftCol .wrapper
+    padding-right: 0.3em
+
+  .rightCol .wrapper
+    padding-left: 0.3em
+
+// specific styles
+
+.siteWrapper
+  margin: 7em auto 5em
+  width: 90em
+
+h1
+  background: transparent url(/images/awesomemarkuplogo.png) no-repeat
+  height: 64px
+  margin-bottom: 1em
+  margin-left: -0.5em
+  text-indent: -9999px
+  width: 405px
+
+a.author
+  font-size: 1.6em
+  margin-left: 27em
+  margin-top: -3em
+  position: absolute
+
+.forkMe img
+  border: none
+  position: absolute
+  right: 0
+  top: 0
+
