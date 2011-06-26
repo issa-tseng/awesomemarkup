@@ -109,7 +109,7 @@
     var xmlEntityEncode = function(str)
     {
         return str.replace(/"/g, '&quot;')
-                  .replace(/'/g, '&squo;')
+                  .replace(/'/g, '&#39;')
                   .replace(/</g, '&lt;')
                   .replace(/>/g, '&gt;')
                   .replace(/&(?!(?:[a-z0-9]{1,6}|#x?[a-f0-9]{1,4});)/ig, '&amp;');
