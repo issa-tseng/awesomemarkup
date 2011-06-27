@@ -220,6 +220,9 @@
       %h3 jQuery
       %p If you're running jQuery, Awesomemarkup will install itself to <code>jQuery.tag</code>. This usually means you can invoke it via <code>$.tag</code>. When calling the jQuery version of the function, you'll by default get a <code>jQuery</code> object back that you can then proceed to directly manipulate. If you don't want this behavior, pass in <code>false</code> as your second argument.
 
+      %h3 Node.js / CommonJS
+      %p Awesomemarkup exports itself as a CommonJS module if it can, in which case the Awesomemarkup function is found under the module under the name <code>tag</code>.
+
       %h3 Other frameworks
       %p Are coming soon! It's been long enough since I used them that I have to do a bit of studying first.
 
