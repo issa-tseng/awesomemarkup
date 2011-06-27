@@ -31,21 +31,22 @@ body {
   background-color: #3c3c3c;
   color: #f2f2f2; }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #eeeeee; }
-
 h2 {
+  color: #99cc33;
   font-size: 2em;
   margin-bottom: 0.3em;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); }
 
 h3 {
+  color: #eeeeee;
   font-size: 1.6em;
-  margin-bottom: 0.4em; }
+  margin-bottom: 0.4em;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); }
 
 p {
   font-size: 1.6em;
-  line-height: 1.3em; }
+  line-height: 1.3em;
+  margin-bottom: 1.5em; }
 
 pre {
   background-color: #2d2d2d;
@@ -55,13 +56,13 @@ pre {
   -webkit-border-radius: 1em;
   webkit-border-radius: 1em;
   font-family: monaco, menlo, consolas, monospace;
-  font-size: 1.1em;
+  font-size: 1.2em;
   line-height: 1.3em;
   padding: 1em;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6); }
 
 a {
-  color: #99cc33;
+  color: #0aa6ff;
   text-decoration: none;
   transition-duration: 1s;
   -moz-transition-duration: 1s;
@@ -74,7 +75,7 @@ a {
 
 .twoUp {
   overflow: hidden;
-  padding: 2em 0; }
+  padding-bottom: 2em; }
   .twoUp .leftCol, .twoUp .rightCol {
     float: left;
     width: 50%; }
@@ -95,14 +96,11 @@ h1 {
   text-indent: -9999px;
   width: 405px; }
 
-a.author {
-  font-size: 1.6em;
-  margin-left: 27em;
-  margin-top: -3em;
-  position: absolute; }
-
 .forkMe img {
   border: none;
   position: absolute;
   right: 0;
   top: 0; }
+
+.author {
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); }

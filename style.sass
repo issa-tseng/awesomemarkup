@@ -3,9 +3,10 @@
 $background: #3c3c3c
 $inset: #2d2d2d
 $inset-border: #262626
-$headers: #eee
+$headertwos: #9c3
+$headerthrees: #eee
 $text: #f2f2f2
-$link: #9c3
+$link: #0aa6ff
 $link_highlight: #fff
 
 // helpers
@@ -78,28 +79,29 @@ body
   background-color: $background
   color: $text
 
-h1, h2, h3, h4, h5, h6
-  color: $headers
-
 h2
+  color: $headertwos
   font-size: 2em
   margin-bottom: 0.3em
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4)
 
 h3
+  color: $headerthrees
   font-size: 1.6em
   margin-bottom: 0.4em
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4)
 
 p
   font-size: 1.6em
   line-height: 1.3em
+  margin-bottom: 1.5em
 
 pre
   background-color: $inset
   border: 2px solid $inset-border
   @include border-radius(1em)
   font-family: monaco, menlo, consolas, monospace
-  font-size: 1.1em
+  font-size: 1.2em
   line-height: 1.3em
   padding: 1em
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6)
@@ -115,7 +117,7 @@ a
 
 .twoUp
   overflow: hidden
-  padding: 2em 0
+  padding-bottom: 2em
 
   .leftCol, .rightCol
     float: left
@@ -141,15 +143,12 @@ h1
   text-indent: -9999px
   width: 405px
 
-a.author
-  font-size: 1.6em
-  margin-left: 27em
-  margin-top: -3em
-  position: absolute
-
 .forkMe img
   border: none
   position: absolute
   right: 0
   top: 0
+
+.author
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4)
 

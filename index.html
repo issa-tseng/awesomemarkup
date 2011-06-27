@@ -9,13 +9,12 @@
   <body>
     <div class='siteWrapper'>
       <h1>awesomemarkup</h1>
-      <a class='author' href='https://github.com/clint-tseng'>by Clint Tseng</a>
       <h2>What is this?</h2>
       <p>Sometimes, despite all your separation of content, style, and behavior, you just have to generate some markup from your javascript. Usually, what this means is a bunch of terrible string concatenation, ternaries, and bewilderingly escaped quotation marks. Awesomemarkup is a tool designed to allow you to generate an element or ten with speed, precision, and cleanliness. It allows you to <em>describe</em> what you want. Here's an example:</p>
       <div class='twoUp'>
         <div class='leftCol'>
           <div class='wrapper'>
-            <h3>Normal Javascript</h3>
+            <h3>The old way</h3>
             <pre>var markup = '&lt;div class="content ' + article.contentType +&#x000A;  '" style="display:' + (article.visible ? 'block' :&#x000A;  'none') + '"&gt;' + '&lt;h2&gt;' + article.title + '&lt;/h2&gt;' +&#x000A;  '&lt;/div&gt;';</pre>
           </div>
         </div>
@@ -26,8 +25,44 @@
           </div>
         </div>
       </div>
-      <h2>Overview</h2>
-      <p>Awesomemarkup takes a definition hash of the markup you wish to generate, and operates based on that. It works on a few simple rules.</p>
+      <h2>How do I use it?</h2>
+      <p>Awesomemarkup takes a definition hash of the markup you wish to generate, and operates based on that. It works on a few simple rules, which are described below.</p>
+      <h2>Tag basics</h2>
+      <p>A tag is defined by constructing a hash containing the attributes you'd like it to have. There are a number of special keys it takes, but the most important one is the underscore (_). It declares the type of tag you'd like to generate:</p>
+      <div class='twoUp'>
+        <div class='leftCol'>
+          <div class='wrapper'>
+            <h3>Definition</h3>
+            <pre>{ _: 'img' }</pre>
+          </div>
+        </div>
+        <div class='rightCol'>
+          <div class='wrapper'>
+            <h3>Output</h3>
+            <pre>&lt;img/&gt;</pre>
+          </div>
+        </div>
+      </div>
+      <p>As you can see, Awesomemarkup is also clever about when to generate a self-closing tag. After that, most attributes you'd want to add go in just as keys on the hash:</p>
+      <div class='twoUp'>
+        <div class='leftCol'>
+          <div class='wrapper'>
+            <h3>Definition</h3>
+            <pre>{&#x000A;  _: 'a',&#x000A;  id: 'homeLink',&#x000A;  href: '/',&#x000A;  rel: 'nofollow',&#x000A;  title: 'Click &lt;here&gt; to go &quot;home&quot;!'&#x000A;}</pre>
+          </div>
+        </div>
+        <div class='rightCol'>
+          <div class='wrapper'>
+            <h3>Output</h3>
+            <pre>&lt;a id="homeLink" href="/" rel="nofollow" title="Click &amp;lt;he&#x000A;re&amp;gt; to go &amp;quot;home&amp;quot;!"&gt;&lt;/a&gt;&#x000A;</pre>
+          </div>
+        </div>
+      </div>
+      <p>Notice that the special characters got properly escaped; attributes are automatically sanitized to prevent accidental markup breakage, and as a light protection against xss attacks.</p>
+      <h2>Attribute values</h2>
+      <p>
+        <a class='author' href='https://github.com/clint-tseng'>by Clint Tseng</a>
+      </p>
     </div>
     <a class='forkMe' href='https://github.com/clint-tseng/awesomemarkup'>
       <img alt='Fork me on GitHub' src='https://d3nwyuy0nl342s.cloudfront.net/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67' />
