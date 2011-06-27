@@ -19,7 +19,7 @@ describe('basic attributes', function()
             title: '<terrible "title" for an \'a\'>'
         };
 
-        expect(t.tag(config)).toEqual('<a title="&lt;terrible &quot;title&quot; for an &squo;a&squo;&gt;"></a>');
+        expect(t.tag(config)).toEqual('<a title="&lt;terrible &quot;title&quot; for an &#39;a&#39;&gt;"></a>');
     });
 
     it('should not escape &s that are entities already', function()
