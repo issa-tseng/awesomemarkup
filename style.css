@@ -16,7 +16,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 body {
   font-size: 62.5%;
-  line-height: 1; }
+  line-height: 1;
+  padding-bottom: 10em; }
 
 ol, ul {
   list-style: none; }
@@ -126,4 +127,6 @@ h1 {
   top: 0; }
 
 .author {
+  display: block;
+  margin-top: 4em;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); }
