@@ -136,6 +136,16 @@
         root['awesomemarkup'] = tag;
 
     // attach ourselves to various frameworks if we find them
-    //if (root['jQuery'])
+    var jQuery = root['jQuery'];
+    if (!isUndefined(jQuery))
+    {
+        jQuery['tag'] = function(config, skipjQuery)
+        {
+            if (skipjQuery === false)
+                return tag(config);
+            else
+                return jQuery(tag(config));
+        };
+    }
 })();
 
