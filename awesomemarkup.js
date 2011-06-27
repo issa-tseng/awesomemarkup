@@ -130,7 +130,7 @@
     var root = this;
 
     // export to commonjs/node module if we see one; otherwise add to global
-    if (!isUndefined(module) && module['exports'])
+    if ((typeof module !== 'undefined') && module['exports'])
         module['exports'] = { 'tag': tag };
     else
         root['awesomemarkup'] = tag;
