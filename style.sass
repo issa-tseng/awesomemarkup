@@ -4,10 +4,16 @@ $background: #3c3c3c
 $inset: #2d2d2d
 $inset-border: #262626
 $headertwos: #9c3
-$headerthrees: #eee
+$headerthrees: #faf75a
+$headerfours: #aaa
+$strong: #f6d
 $text: #f2f2f2
 $link: #0aa6ff
 $link_highlight: #fff
+
+// other
+
+$font-code: monaco, menlo, consolas, monospace
 
 // helpers
 
@@ -40,6 +46,9 @@ $link_highlight: #fff
   @else
     -moz-transition-property: $p
     -webkit-transition-property: $p
+
+@mixin standard-shadow($dist: 2px, $alpha: 0.4)
+  text-shadow: $dist $dist 0 rgba(0, 0, 0, $alpha)
 
 // reset
 
@@ -83,28 +92,47 @@ h2
   color: $headertwos
   font-size: 2em
   margin-bottom: 0.3em
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4)
+  margin-top: 3em
+  @include standard-shadow
 
 h3
   color: $headerthrees
   font-size: 1.6em
   margin-bottom: 0.4em
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4)
+  @include standard-shadow
+
+h4
+  color: $headerfours
+  font-size: 1.6em
+  margin-bottom: 0.4em
+  @include standard-shadow
 
 p
   font-size: 1.6em
   line-height: 1.3em
   margin-bottom: 1.5em
 
+strong
+  color: $strong
+  font-weight: normal
+
 pre
   background-color: $inset
   border: 2px solid $inset-border
   @include border-radius(1em)
-  font-family: monaco, menlo, consolas, monospace
+  font-family: $font-code
   font-size: 1.2em
   line-height: 1.3em
   padding: 1em
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6)
+  @include standard-shadow(1px, 0.6)
+
+code
+  background-color: $inset
+  @include border-radius(0.2em)
+  font-family: $font-code
+  font-size: 0.8em
+  padding: 0 0.3em
+  @include standard-shadow(1px)
 
 a
   color: $link
@@ -138,8 +166,9 @@ a
 h1
   background: transparent url(images/awesomemarkuplogo.png) no-repeat
   height: 64px
-  margin-bottom: 1em
+  margin-bottom: -2em
   margin-left: -0.5em
+  text-align: left
   text-indent: -9999px
   width: 405px
 
@@ -150,5 +179,5 @@ h1
   top: 0
 
 .author
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4)
+  @include standard-shadow
 

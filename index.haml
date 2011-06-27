@@ -11,12 +11,12 @@
       %h1 awesomemarkup
 
       %h2 What is this?
-      %p Sometimes, despite all your separation of content, style, and behavior, you just have to generate some markup from your javascript. Usually, what this means is a bunch of terrible string concatenation, ternaries, and bewilderingly escaped quotation marks. Awesomemarkup is a tool designed to allow you to generate an element or ten with speed, precision, and cleanliness. It allows you to <em>describe</em> what you want. Here's an example:
+      %p Sometimes, despite all your separation of content, style, and behavior, you just have to generate some markup from your javascript. Usually, what this means is a bunch of terrible string concatenation, ternaries, and bewilderingly escaped quotation marks. Awesomemarkup is a framework-agnostic tool designed to allow you to generate an element or ten with speed, precision, and cleanliness. Here's an example:
 
       .twoUp
         .leftCol
           .wrapper
-            %h3 The old way
+            %h4 The old way
             %pre
               :preserve
                 var markup = '&lt;div class="content ' + article.contentType +
@@ -25,15 +25,14 @@
                   '&lt;/div&gt;';
         .rightCol
           .wrapper
-            %h3 Awesomemarkup
+            %h4 Awesomemarkup
             %pre
               :preserve
                 var markup = $.tag({
                   _: 'div',
                   class: [ 'content', article.contentType ],
                   style: {
-                    display: { i: article.visible,
-                               t: 'block', e: 'none' }
+                    display: { i: article.visible, t: 'block', e: 'none' }
                   },
                   content: {
                     _: 'h2',
@@ -45,16 +44,16 @@
       %p Awesomemarkup takes a definition hash of the markup you wish to generate, and operates based on that. It works on a few simple rules, which are described below.
 
       %h2 Tag basics
-      %p A tag is defined by constructing a hash containing the attributes you'd like it to have. There are a number of special keys it takes, but the most important one is the underscore (_). It declares the type of tag you'd like to generate:
+      %p A tag is defined by constructing a hash containing the attributes you'd like it to have. There are a number of special keys it takes, but the most important one is the underscore (<code>_</code>). It declares the type of tag you'd like to generate:
 
       .twoUp
         .leftCol
           .wrapper
-            %h3 Definition
+            %h4 Definition
             %pre { _: 'img' }
         .rightCol
           .wrapper
-            %h3 Output
+            %h4 Output
             %pre &lt;img/&gt;
 
       %p As you can see, Awesomemarkup is also clever about when to generate a self-closing tag. After that, most attributes you'd want to add go in just as keys on the hash:
@@ -62,7 +61,7 @@
       .twoUp
         .leftCol
           .wrapper
-            %h3 Definition
+            %h4 Definition
             %pre
               :preserve
                 {
@@ -74,13 +73,155 @@
                 }
         .rightCol
           .wrapper
-            %h3 Output
+            %h4 Output
             %pre
               :preserve
                 &lt;a id="homeLink" href="/" rel="nofollow" title="Click &amp;lt;he
                 re&amp;gt; to go &amp;quot;home&amp;quot;!"&gt;&lt;/a&gt;
 
       %p Notice that the special characters got properly escaped; attributes are automatically sanitized to prevent accidental markup breakage, and as a light protection against xss attacks.
+
+      %h2 Attribute values
+      %p Besides just straight strings, there are a number of different things you can do with attribute values, depending on what you give Awesomemarkup and what the context is:
+
+      %h3 Arrays
+      %p If you give an array as a value, Awesomemarkup will parse the members with the toplevel attribute value rules, and join the results with spaces. A handy place to use this is with classes:
+
+      .twoUp
+        .leftCol
+          .wrapper
+            %h4 Definition
+            %pre
+              :preserve
+                {
+                  _: 'div',
+                  'class': [ 'contentBox', 'clearfix' ]
+                }
+        .rightCol
+          .wrapper
+            %h4 Output
+            %pre &lt;div class="contentBox clearfix"&gt;&lt;/div&gt;
+
+      %h3 Conditionals
+      %p Awesomemarkup has a semantic for specifying conditionals, so that you can abandon using ternaries in your code. To use it, specify a hash with the <code>i</code> (for <strong>i</strong>f) key with your condition, which should evaluate to <code>true</code> or <code>false</code>. You can then specify one or both of <code>t</code> (for <strong>t</strong>hen) and <code>e</code> (<strong>e</strong>lse) to indicate what to do in those cases.
+
+      .twoUp
+        .leftCol
+          .wrapper
+            %h4 Definition
+            %pre
+              :preserve
+                {
+                  _: 'h1',
+                  'class': { i: (1 + 1 == 2), t: 'active' }
+                }
+        .rightCol
+          .wrapper
+            %h4 Output
+            %pre &lt;h1 class="active"&gt;&lt;/h1&gt;
+
+      %h3 Boolean Attributes
+      %p If you're specifying an attribute that is defined in the HTML spec as boolean, give Awesomemarkup a boolean and it'll know how to deal with it:
+
+      .twoUp
+        .leftCol
+          .wrapper
+            %h4 Definition
+            %pre
+              :preserve
+                {
+                  _: 'input',
+                  type: 'checkbox',
+                  readonly: true,
+                  id: true
+                }
+        .rightCol
+          .wrapper
+            %h4 Output
+            %pre &lt;input type="checkbox" readonly="readonly" id="true"/&gt;
+
+      %h3 Style
+      %p <code>style</code> is a special attribute in Awesomemarkup. You can give it a string and it'll work as usual, but you can also give it a key-value hash and it'll do what you'd probably expect it to. It'll also handle converting your keynames to css-style if you give them js-style. And of course, conditionals work here too.
+
+      .twoUp
+        .leftCol
+          .wrapper
+            %h4 Definition
+            %pre
+              :preserve
+                {
+                  _: 'div',
+                  style: {
+                    display: { i: (1 + 1 == 3), t: 'block', e: 'none' },
+                    marginTop: '1em',
+                    margin-bottom: '1em'
+                  }
+                }
+        .rightCol
+          .wrapper
+            %h4 Output
+            %pre &lt;div style="display:none;margin-top:1em;margin-bottom:1em"&gt;&lt;/div&gt;
+
+      %h3 Everything else
+      %p If Awesomemarkup can't seem to match any of the above rules with the object you pass in, it'll just call <code>toString</code> on it, and move on with its life.
+
+      %h2 Structure
+
+      %h3 Root
+      %p At the top level, Awesomemarkup will take a tag config, a string or other primitive value, a conditional, or an array of any number of these things:
+
+      .twoUp
+        .leftCol
+          .wrapper
+            %h4 Definition
+            %pre
+              :preserve
+                [
+                  { _: 'div' },
+                  { i: (2 + 2 == 5), t: { _: 'img' }, e: 'freedom!' },
+                  'yup.'
+                ]
+        .rightCol
+          .wrapper
+            %h4 Output
+            %pre &lt;div&gt;&lt;/div&gt;freedom!yup.
+
+      %h3 Children
+      %p To nest content, use the same rules as the root node, but give them as the special <code>content</code> key of a tag config:
+
+      .twoUp
+        .leftCol
+          .wrapper
+            %h4 Definition
+            %pre
+              :preserve
+                {
+                  _: 'p',
+                  content: [{
+                    _: 'span',
+                    id: 'articleName',
+                    content: 'This article'
+                  },
+                  ' is meant to teach you about Awesomemarkup.']
+                }
+        .rightCol
+          .wrapper
+            %h4 Output
+            %pre
+              :preserve
+                &lt;p&gt;&lt;span id="articleName"&gt;This article&lt;/span&gt; is meant to te
+                ach you about Awesomemarkup&lt;/p&gt;
+
+      %h2 Web Frameworks
+
+      %h3 No framework
+      %p If you have no web framework, Awesomemarkup can be found under the <code>window</code> root object, under the name of <code>awesomemarkup</code>.
+
+      %h3 jQuery
+      %p If you're running jQuery, Awesomemarkup will install itself to <code>jQuery.tag</code>. This usually means you can invoke it via <code>$.tag</code>. When calling the jQuery version of the function, you'll by default get a <code>jQuery</code> object back that you can then proceed to directly manipulate. If you don't want this behavior, pass in <code>false</code> as your second argument.
+
+      %h3 Other frameworks
+      %p Are coming soon! It's been long enough since I used them that I have to do a bit of studying first.
 
       %p
         %a{ class: 'author', href: 'https://github.com/clint-tseng' } by Clint Tseng

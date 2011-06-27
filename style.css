@@ -35,10 +35,17 @@ h2 {
   color: #99cc33;
   font-size: 2em;
   margin-bottom: 0.3em;
+  margin-top: 3em;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); }
 
 h3 {
-  color: #eeeeee;
+  color: #faf75a;
+  font-size: 1.6em;
+  margin-bottom: 0.4em;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); }
+
+h4 {
+  color: #aaaaaa;
   font-size: 1.6em;
   margin-bottom: 0.4em;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); }
@@ -47,6 +54,10 @@ p {
   font-size: 1.6em;
   line-height: 1.3em;
   margin-bottom: 1.5em; }
+
+strong {
+  color: #ff66dd;
+  font-weight: normal; }
 
 pre {
   background-color: #2d2d2d;
@@ -60,6 +71,17 @@ pre {
   line-height: 1.3em;
   padding: 1em;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6); }
+
+code {
+  background-color: #2d2d2d;
+  border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -webkit-border-radius: 0.2em;
+  webkit-border-radius: 0.2em;
+  font-family: monaco, menlo, consolas, monospace;
+  font-size: 0.8em;
+  padding: 0 0.3em;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4); }
 
 a {
   color: #0aa6ff;
@@ -91,8 +113,9 @@ a {
 h1 {
   background: transparent url(images/awesomemarkuplogo.png) no-repeat;
   height: 64px;
-  margin-bottom: 1em;
+  margin-bottom: -2em;
   margin-left: -0.5em;
+  text-align: left;
   text-indent: -9999px;
   width: 405px; }
 
