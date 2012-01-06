@@ -124,7 +124,7 @@
     var isUndefined = function(obj) { return obj === void 0; };
     var isNumber = function(obj) { return !!(obj === 0 || (obj && obj.toExponential && obj.toFixed)); };
     var isString = function(obj) { return !!(obj === '' || (obj && obj.charCodeAt && obj.substr)); };
-    var isArray = Array.isArray || function(obj) { return toString.call(obj) === '[object Array]'; };
+    var isArray = Array.isArray || function(obj) { return Object.prototype.toString.call(obj) === '[object Array]'; };
 
 // setup!
     var root = this;
