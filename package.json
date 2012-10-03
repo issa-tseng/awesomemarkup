@@ -1,0 +1,14 @@
+{
+  "name": "awesomemarkup",
+  "version": "0.1.0",
+  "author": "Clint Tseng <clint@dontexplain.com>",
+  "description": "In-JS markup generation without the messiness.",
+  "main": "./awesomecomplete.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clint-tseng/awesomemarkup.git"
+  },
+  "keywords": [ "markup" ],
+  "devDependencies": [ "jasmine-node" ],
+  "license": "WTFPL"
+}
