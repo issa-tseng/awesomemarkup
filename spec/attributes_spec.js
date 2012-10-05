@@ -85,6 +85,16 @@ describe('special attributes', function()
         expect(t.tag(config)).toEqual('<div id="true"></div>');
     });
 
+    it('should output class given className', function()
+    {
+        var config = {
+            _: 'div',
+            className: 'myClass'
+        };
+
+        expect(t.tag(config)).toEqual('<div class="myClass"></div>');
+    });
+
     it('should take a k/v hash for style attributes', function()
     {
         var config = {

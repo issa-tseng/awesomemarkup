@@ -44,6 +44,11 @@
                 continue;
 
             var parsedValue = parseValue(options[attr], attr);
+
+            // class is reserved (in ie, anyway)
+            if (attr == 'className')
+              attr = 'class';
+
             if (isString(parsedValue) && (parsedValue !== ''))
                 result.push(' ' + attr + '="' + xmlEntityEncode(parsedValue) + '"');
         }
