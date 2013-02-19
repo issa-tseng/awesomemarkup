@@ -1,6 +1,6 @@
 {
   "name": "awesomemarkup",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "Clint Tseng <clint@dontexplain.com>",
   "description": "In-JS markup generation without the messiness.",
   "main": "./awesomemarkup.min.js",
