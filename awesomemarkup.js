@@ -49,7 +49,7 @@
             if (attr == 'className')
               attr = 'class';
 
-            if (isString(parsedValue) && (parsedValue !== ''))
+            if (isString(parsedValue))
                 result.push(' ' + attr + '="' + xmlEntityEncode(parsedValue) + '"');
         }
 
@@ -65,7 +65,7 @@
     {
         if (isUndefined(value) || (value === null))
         {
-            return '';
+            return null;
         }
         else if (isArray(value))
         {
@@ -86,7 +86,7 @@
             attr == 'compact'))
             return attr;
         if (value === false)
-            return ''; // we don't care what this might have been
+            return null; // we don't care what this might have been
 
         // after this point, we assume that we're an object; all primitive types have been detected
 
